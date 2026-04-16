@@ -24,4 +24,12 @@ jobs:
 
       - name: Ejecutar Pylint
         run: |
-          pylint $(git ls-files '*.py')
+          echo "Buscando archivos Python..."
+          FILES=$(find . -name "*.py")
+
+          if [ -z "$FILES" ]; then
+            echo "No hay archivos Python para analizar"
+            exit 0
+          fi
+
+          pylint $FILES
